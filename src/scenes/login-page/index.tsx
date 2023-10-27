@@ -1,37 +1,40 @@
 import {
-    Box, 
+    Box,
     Typography,
     useTheme,
     useMediaQuery,
 } from '@mui/material'
+import Form from './Form';
 
-const LoginPage:React.FunctionComponent = () => {
+const LoginPage: React.FunctionComponent = () => {
     const theme = useTheme();
-    const isNonMobileScreens = useMediaQuery("min-width: 1000px");
+    const isNonMobileScreens = useMediaQuery("(min-width: 1000px");
 
     return (
-            <Box>
-                <Box
+        <Box>
+            <Box
                 width={'100%'}
                 p={'1rem 6%'}
                 sx={{
-                    backgroundColor:theme.palette.background.alt
+                    backgroundColor: theme.palette.background.alt
                 }}
             >
                 <Typography
-                fontWeight={'bold'}
-                fontSize={'32px'}
-                color='primary'
+                    fontWeight={'bold'}
+                    fontSize={'32px'}
+                    color='primary'
+                    textAlign={'center'}
                 >
                     {'Sociopedia'}
                 </Typography>
             </Box>
             <Box
+                width={isNonMobileScreens ? '50%' : '93%'}
                 p={"2rem"}
                 m={"2rem auto"}
                 borderRadius={"1.rem"}
                 sx={{
-                    backgroundColor:theme.palette.background.alt
+                    backgroundColor: theme.palette.background.alt
                 }}
             >
                 <Typography
@@ -43,10 +46,11 @@ const LoginPage:React.FunctionComponent = () => {
                 >
                     Welcome to Sociopedia, the Social Media for Sociopaths
                 </Typography>
+                <Form />
             </Box>
         </Box>
     )
-    
+
 
 };
 
