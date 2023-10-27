@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# Sociopedia Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Version:** 0.1.0
 
-## Available Scripts
+Sociopedia Frontend is the client-side application of Sociopedia, a MERN (MongoDB, Express.js, React.js, Node.js) based social media platform. This application is built using React.js and integrates with the Sociopedia backend server to provide users with an interactive and responsive social media experience.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **Modern UI:** Utilizes Material-UI for sleek and intuitive user interfaces.
+- **State Management:** Employs Redux Toolkit and React-Redux for efficient state management.
+- **Form Handling:** Integrates Formik and Yup for seamless form validation and user input.
+- **File Upload:** Supports file uploads using React Dropzone for profile picture uploads and media sharing.
+- **Authentication:** Implements secure authentication mechanisms for user login and registration.
+- **Routing:** Utilizes React Router DOM for smooth navigation between different views.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Prerequisites
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+Before running the Sociopedia Frontend application, ensure you have the following installed:
 
-### `npm test`
+- **Node.js:** [Download and install Node.js](https://nodejs.org/).
+- **npm:** npm is included with Node.js. If you are using Node.js version 5.2.0 or higher, npm is already installed.
+- **React Scripts:** Sociopedia Frontend is bootstrapped with Create React App, which uses React Scripts. Install it globally using `npm install -g react-scripts`.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation
 
-### `npm run build`
+1. Clone the repository: `git clone <repository-url>`
+2. Navigate to the project directory: `cd sociopedia-frontend`
+3. Install dependencies: `npm install`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Development:** Run the app in development mode: `npm start`. Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Production Build:** Create a production-ready build: `npm run build`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Environment Variables
 
-### `npm run eject`
+Sociopedia Frontend uses environment variables for configuration. Create a `.env` file in the root directory and define the following variables:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```env
+REACT_APP_BACKEND_URL=<URL_OF_YOUR_SOCIOPEDIA_BACKEND_SERVER>
