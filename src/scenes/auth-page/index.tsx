@@ -1,12 +1,15 @@
+import React, { useState } from 'react';
 import {
     Box,
     Typography,
     useTheme,
     useMediaQuery,
 } from '@mui/material'
-import Form from './Form';
+import RegisterForm from '../auth-page/RegisterForm';
+import LoginForm from '../auth-page/LoginForm';
 
-const LoginPage: React.FunctionComponent = () => {
+const AuthPage: React.FunctionComponent = () => {
+    const [pageType, setPageType] = useState<'register' | 'login'>('login')
     const theme = useTheme();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px");
 
@@ -32,7 +35,7 @@ const LoginPage: React.FunctionComponent = () => {
                 width={isNonMobileScreens ? '50%' : '93%'}
                 p={"2rem"}
                 m={"2rem auto"}
-                borderRadius={"1.rem"}
+                borderRadius={"1rem"}
                 sx={{
                     backgroundColor: theme.palette.background.alt
                 }}
@@ -46,7 +49,7 @@ const LoginPage: React.FunctionComponent = () => {
                 >
                     Welcome to Sociopedia, the Social Media for Sociopaths
                 </Typography>
-                <Form />
+                {pageType === 'login' ? <LoginForm setPageType={setPageType} /> : <RegisterForm setPageType={setPageType}/>}
             </Box>
         </Box>
     )
@@ -54,4 +57,4 @@ const LoginPage: React.FunctionComponent = () => {
 
 };
 
-export default LoginPage;
+export default AuthPage;

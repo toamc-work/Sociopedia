@@ -15,3 +15,9 @@ declare module '@mui/material' {
         alt:string;
     }
 }
+
+declare module 'react-dropzone' {
+    interface DropzoneProps {
+        acceptedFields: string;
+    }
+}
