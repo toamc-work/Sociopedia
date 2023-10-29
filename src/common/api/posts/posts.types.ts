@@ -23,12 +23,20 @@ export namespace PostServiceTypes {
     export interface IGetFeedPostsResponse404 {
         error:string;
     }
+
+    export type IPatchLikeResponse200 = IStateAuth.IPost
+
+    export interface IPatchLikeResponse404 {
+        msg?: 'User was not found';
+        error?: string;
+    }
 }
 
 export interface IPostService {
     createPost: (token:string, formData:FormData) => Promise<PostServiceTypes.ICreatePostResponse201>
     getUserPosts: (token:string, userId:string) => Promise<PostServiceTypes.IGetUserPostsResponse200>
     getFeedPosts: (token:string) => Promise<PostServiceTypes.IGetFeedPostsResponse200>
+    patchLike: (authorizedUserId:string, token:string, postId:string) => Promise<PostServiceTypes.IPatchLikeResponse200>
 }
 
 

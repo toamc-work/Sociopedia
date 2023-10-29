@@ -5,7 +5,7 @@ import PostWidget from './PostWidget';
 import postService from "../../common/api/posts/posts.service";
 
 
-const PostsWidget:React.FunctionComponent<{userId:string, isProfile:boolean}> = ({userId, isProfile = false}) => {
+const PostsWidget:React.FunctionComponent<{userId:string, isProfile?:boolean}> = ({userId, isProfile = false}) => {
     const dispatch = useDispatch();
     const posts = useSelector((state:IStateAuth.IInitialState) => state.posts)
     const token = useSelector((state:IStateAuth.IInitialState) => state.token)
@@ -57,3 +57,5 @@ const PostsWidget:React.FunctionComponent<{userId:string, isProfile:boolean}> = 
     )
 
 }
+
+export default PostsWidget

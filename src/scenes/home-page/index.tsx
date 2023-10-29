@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { IStateAuth } from "../../state";
 import UserWidget from "../widgets/UserWidget";
 import MyPostWidget from "../widgets/MyPostWidget";
+import PostsWidget from "../widgets/PostsWidget";
 
 const HomePage:React.FunctionComponent = () => {
     const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
@@ -26,6 +27,7 @@ const HomePage:React.FunctionComponent = () => {
                 mt={isNonMobileScreens ? undefined : '2rem'}
             >
                 <MyPostWidget picturePath={picturePath}/>
+                <PostsWidget userId={_id}/>
             </Box>
             <Box>
                 {isNonMobileScreens && <Box flexBasis={"26%"}></Box>}

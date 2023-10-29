@@ -16,12 +16,6 @@ declare module '@mui/material' {
     }
 }
 
-declare module 'react-dropzone' {
-    interface DropzoneProps {
-        acceptedFields: string;
-    }
-}
-
 declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';

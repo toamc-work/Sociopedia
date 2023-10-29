@@ -148,7 +148,9 @@ const RegisterForm:React.FunctionComponent<{setPageType: (page:'login' | 'regist
                                 p={'1rem'}
                             >
                                 <Dropzone 
-                                acceptedFields= '.jpg, .png, .jpeg'
+                                accept={{
+                                    'image/jpeg': ['.jpeg', '.png', '.jpg']
+                                }}
                                 multiple={false}
                                 onDrop={(acceptedFields) => {
                                     setFieldValue('picture', acceptedFields[0]);

@@ -88,7 +88,9 @@ const MyPostWidget:React.FunctionComponent<{picturePath:string}> = ({picturePath
                     p={'1rem'}
                 >
                     <Dropzone 
-                        acceptedFields= '.jpg, .png, .jpeg'
+                        accept={{
+                            'image/jpeg': ['.jpeg', '.png', '.jpg']
+                        }}
                         multiple={false}
                         onDrop={(acceptedFields:File[]) => {
                             setImage(acceptedFields[0]);

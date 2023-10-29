@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import FlexBetween from "./FlexBetween";
 import UserImage from "./UserImage";
 import { useNavigate } from 'react-router-dom';
-import { IStateAuth } from '../state';
+import { IStateAuth, setFriends } from '../state';
+import userService from '../common/api/users/users.service';
 
 const Friend:React.FunctionComponent<{
     friendId:string, 
@@ -34,7 +35,8 @@ const Friend:React.FunctionComponent<{
     const isFriend = useMemo(() => Boolean(friends.find((friend) => friend._id === friendId)), [friends]);
 
     async function handlePatchFriend(){
-
+        const friends = await userService.addRemoveFriend(token, _id, friendId);
+        dispatch(setFriends({friends:friends}))
     }
 
     return (
@@ -62,10 +64,11 @@ const Friend:React.FunctionComponent<{
                 </Typography>
             </Box>
             <IconButton
-             sx={{
-                backgroundColor:primaryLight,
-                p: '0.6rem',
-             }}
+                onClick={handlePatchFriend} 
+                sx={{
+                    backgroundColor:primaryLight,
+                    p: '0.6rem',
+                }}
             >
                 {isFriend ? 
                 (

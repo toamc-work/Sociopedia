@@ -2,13 +2,14 @@ import { PostServiceTypes, IPostService } from "./posts.types";
 
 class PostService implements IPostService {
     private '@path':string;
-
+    private '@baseUrl':string;
     constructor(){
         this['@path'] = 'posts/';
+        this['@baseUrl'] = process.env.REACT_APP_BACKEND_URL ?? '';
     }
 
     createPost = async (token: string, formData: FormData):Promise<PostServiceTypes.ICreatePostResponse201> => {
-        const url = process.env.REACT_APP_BACKEND_URL + this["@path"];
+        const url = this["@baseUrl"] + this["@path"];
         const options = {
             method:'post',
             headers: {
@@ -35,7 +36,7 @@ class PostService implements IPostService {
     };
 
     getFeedPosts = async (token: string):Promise<PostServiceTypes.IGetFeedPostsResponse200> => {
-        const url = process.env.REACT_APP_BACKEND_URL + this["@path"]
+        const url = this["@baseUrl"] + this["@path"]
         const options = {
             method: 'get',
             headers :{
@@ -57,7 +58,7 @@ class PostService implements IPostService {
     };
     
     getUserPosts = async (token: string, userId: string):Promise<PostServiceTypes.IGetUserPostsResponse200> => {
-        const url = process.env.REACT_APP_BACKEND_URL + userId + '/' + this["@path"];
+        const url = this["@baseUrl"] + userId + '/' + this["@path"];
         const options = {
             method: 'get',
             headers :{
@@ -75,6 +76,31 @@ class PostService implements IPostService {
         {
             const NotFound:PostServiceTypes.IGetUserPostsResponse404 = await postsResponse.json();
             throw new Error(NotFound.error);
+        };
+    };
+
+    patchLike = async (authorizedUserId:string, token: string, postId: string): Promise<PostServiceTypes.IPatchLikeResponse200> => {
+        const url = this["@baseUrl"] + this["@path"] + postId + '/like'
+        const options = {
+            method:'PATCH',
+            headers: {
+                'Authorization': ['Bearer', token].join(' '),
+                'content-type': 'application/json',    
+            },
+            body:JSON.stringify({userId:authorizedUserId}),
+        };
+
+        const updatePostResponse = await fetch(url, options);
+
+        if(updatePostResponse.status === 200) {
+            const updatedPost:PostServiceTypes.IPatchLikeResponse200 = await updatePostResponse.json();
+            return updatedPost;
+        }
+        else
+        {
+            const NotFound:PostServiceTypes.IPatchLikeResponse404 = await updatePostResponse.json();
+            const errorMessage:string = NotFound.msg ?? NotFound.error ?? '';
+            throw new Error(errorMessage);
         };
     };
 

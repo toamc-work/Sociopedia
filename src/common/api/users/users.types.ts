@@ -23,6 +23,8 @@ export namespace UserServiceTypes {
         msg?:'User was not found';
         error?: string;
     }
+
+    
 }
 
 export interface IUserService {
