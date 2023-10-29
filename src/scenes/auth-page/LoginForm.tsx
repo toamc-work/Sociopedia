@@ -15,7 +15,7 @@ import { AuthPageYup } from "./common/yup";
 import { AuthPageTypes } from "./common/types";
 import { useDispatch } from "react-redux";
 import { setLogin } from "../../state";
-import { API } from "./common/api";
+import authService from "../../common/api/auth/auth.service";
 
 const loginSchema = AuthPageYup.LOGIN_FORM_SCHEMA;
 const initialFormValues:AuthPageTypes.ILoginForm = {
@@ -33,7 +33,7 @@ const LoginForm:React.FunctionComponent<{setPageType:(page:'login' | 'register')
         values:AuthPageTypes.ILoginForm, 
         onSubmitProps:FormikHelpers<AuthPageTypes.ILoginForm>
         ):Promise<void> {
-            const auth = await API.authUser(values); 
+            const auth = await authService.authUser(values); 
             if('msg' in auth) {
                 onSubmitProps.resetForm();
                 if(auth.msg === 'Invalid Credentials') {

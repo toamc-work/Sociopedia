@@ -1,4 +1,4 @@
-namespace ITheme {
+export namespace ITheme {
     export interface IColorTokens {
         grey : {
             [key:number]: string

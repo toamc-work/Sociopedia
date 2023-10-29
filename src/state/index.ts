@@ -37,6 +37,7 @@ export namespace IStateAuth {
         likes: {
             [key:string]: boolean
         };
+        comments: string[]
         __v?: number,
         createdAt: Date,
         updatedAt: Date,
@@ -46,7 +47,8 @@ export namespace IStateAuth {
         mode: 'light' | 'dark';
         user: null | IUser
         token: null | string;
-        posts: IPost[]
+        posts: IPost[];
+        friends: IFriend[]
     };
     
     export const initialState:IInitialState = {
@@ -54,6 +56,7 @@ export namespace IStateAuth {
         user: null,
         token: null,
         posts: [],
+        friends: [],
     };
 };
 

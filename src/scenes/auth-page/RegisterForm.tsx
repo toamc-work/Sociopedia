@@ -15,7 +15,8 @@ import {
 import FlexBetween from "../../components/FlexBetween";
 import { AuthPageYup } from "./common/yup";
 import { AuthPageTypes } from "./common/types";
-import { API } from "./common/api";
+import { EditOutlined } from "@mui/icons-material";
+import authService from "../../common/api/auth/auth.service";
 
 
 const registerSchema = AuthPageYup.REGISTER_FORM_SCHEMA;
@@ -53,7 +54,7 @@ const RegisterForm:React.FunctionComponent<{setPageType: (page:'login' | 'regist
             formData.append('picturePath', values.picture ? values.picture.name : '')
         
 
-            const savedUser = await API.saveUser(formData);
+            const savedUser = await authService.saveUser(formData);
             if(savedUser)
             {
                 setPageType('login');
@@ -172,6 +173,7 @@ const RegisterForm:React.FunctionComponent<{setPageType: (page:'login' | 'regist
                                                 ): (
                                                     <FlexBetween>
                                                         <Typography>{values.picture.name}</Typography>
+                                                        <EditOutlined/>
                                                     </FlexBetween>
                                                 )
                                             }

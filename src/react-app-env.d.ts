@@ -21,3 +21,7 @@ declare module 'react-dropzone' {
         acceptedFields: string;
     }
 }
+
+declare module '*.png';
+declare module '*.jpg';
+declare module '*.jpeg';
