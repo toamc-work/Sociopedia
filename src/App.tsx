@@ -9,6 +9,8 @@ import ProfilePage from './scenes/profile-page';
 import AuthPage from './scenes/auth-page';
 import { IStateAuth } from './state';
 import { ProtectRoute } from './ProtectedRoute';
+import ErrorBoundary from './fallback-components';
+import { Code500 } from './fallback-components/code500';
 
 function App() {
   const mode = useSelector((state:IStateAuth.IInitialState) => state.mode);
@@ -16,17 +18,18 @@ function App() {
  
   return (
     <div className="app">
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline>
-            <Routes>
-              <Route path='/' element={<AuthPage/>}/>
-              <Route path='/home' element={<ProtectRoute element={<HomePage/>}/>}/>
-              <Route path='/profile/:userId' element={<ProtectRoute element={<ProfilePage/>}/>}/>  
-            </Routes>
-          </CssBaseline>
-        </ThemeProvider>
-      </BrowserRouter>
+      
+        <BrowserRouter>
+          <ThemeProvider theme={theme}>
+            <CssBaseline>
+              <Routes>
+                <Route path='/' element={<AuthPage/>}/>
+                <Route path='/home' element={<ProtectRoute element={<ErrorBoundary FallbackUI={Code500}><HomePage/></ErrorBoundary>}/>}/>
+                <Route path='/profile/:userId' element={<ProtectRoute element={<ProfilePage/>}/>}/>  
+              </Routes>
+            </CssBaseline>
+          </ThemeProvider>
+        </BrowserRouter>
     </div>
   );
 }

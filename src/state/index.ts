@@ -8,6 +8,7 @@ export namespace IStateAuth {
         email:string;
         location:string;
         occupations:string;
+        picturePath:string;
     };
     
     export interface IUser {

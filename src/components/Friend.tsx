@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { PersonAddOutlined, PersonRemoveOutlined } from "@mui/icons-material";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,7 @@ const Friend:React.FunctionComponent<{
     const { _id } = useSelector((state:IStateAuth.IInitialState) => state.user ?? {_id: ''});
     const token = useSelector((state:IStateAuth.IInitialState) => state.token ?? '');
     const friends = useSelector((state:IStateAuth.IInitialState) => state.friends);
-
+    const [isError , setIsError] = useState<Error | null>(null)
     const theme = useTheme();
     const primaryLight= theme.palette.primary.light;
     const primaryDark= theme.palette.primary.dark;
@@ -34,9 +34,23 @@ const Friend:React.FunctionComponent<{
 
     const isFriend = useMemo(() => Boolean(friends.find((friend) => friend._id === friendId)), [friends]);
 
+    if(isError) throw isError;
+
     async function handlePatchFriend(){
-        const friends = await userService.addRemoveFriend(token, _id, friendId);
-        dispatch(setFriends({friends:friends}))
+        try
+        {
+            const friends = await userService.addRemoveFriend(token, _id, friendId);
+            dispatch(setFriends({friends:friends}))
+        }
+        catch(error)
+        {
+            if(error instanceof Error)
+            {
+                setIsError(error);
+                // throw error;
+            }
+            
+        }
     }
 
     return (

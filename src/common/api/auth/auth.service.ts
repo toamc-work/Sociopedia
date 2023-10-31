@@ -12,7 +12,7 @@ class AuthService implements IAuthService {
         console.log(url)
         const options = 
         {
-            method:'post',
+            method:'POST',
             body:formData,
         }
 
@@ -34,7 +34,7 @@ class AuthService implements IAuthService {
     public authUser = async (credentials: AuthServiceTypes.IAuthUserCredentials): Promise<AuthServiceTypes.IAuthUserResponse200 | AuthServiceTypes.IAuthUserResponse400> => {
         const url = process.env.REACT_APP_BACKEND_URL + this["@path"] + 'login';
         const options = {
-            method:'post',
+            method:'POST',
             headers: {
                 'content-type': 'application/json',
                 'accept': 'application/json',
@@ -57,6 +57,7 @@ class AuthService implements IAuthService {
         {
             const badResponse:AuthServiceTypes.IAuthUserResponse500 = await loginResponse.json();
             throw new Error(badResponse.error);
+            
         }
     }
 }

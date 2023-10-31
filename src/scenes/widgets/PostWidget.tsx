@@ -59,8 +59,17 @@ const PostWidget:React.FunctionComponent<PostWidgetProps> =
     
     async function handleUpdatePostLikeEvent(_event:React.MouseEvent<HTMLButtonElement>):Promise<void>
     {
-        const updatedPost = await postService.patchLike(authorizedUserId, token, _id);
-        dispatch(setPost({post:updatedPost}));                
+        try
+        {
+            const updatedPost = await postService.patchLike(authorizedUserId, token, _id);
+            dispatch(setPost({post:updatedPost}));                
+        }
+        catch(error)
+        {
+            console.log(error);
+            
+            // throw error
+        }
     };    
     
     return (

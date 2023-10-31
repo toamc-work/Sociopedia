@@ -2,15 +2,17 @@ import { IUserService, UserServiceTypes } from "./users.types";
 
 class UserService implements IUserService {
     private '@path':string;
+    private '@baseUrl':string;
 
     constructor(){
         this['@path'] = 'users/';
+        this['@baseUrl'] = process.env.REACT_APP_BACKEND_URL ?? '';
     }
 
     getUser = async (userId: string, token: string): Promise<UserServiceTypes.IGetUserResponse200> => {
-        const url = process.env.REACT_APP_BACKEND_URL + this["@path"] + userId;
+        const url = this["@baseUrl"] + this["@path"] + userId;
         const options = {
-            method:'get',
+            method:'GET',
             headers: {
                 'Authorization': ['Bearer', token].join(' '),
             }
@@ -31,7 +33,7 @@ class UserService implements IUserService {
     };
 
     addRemoveFriend = async (token:string, _id:string, friendId:string):Promise<UserServiceTypes.IAddRemoveFriendResponse200> => {
-        const url = process.env.REACT_APP_BACKEND_URL + this["@path"] + _id + '/' + friendId;
+        const url = this["@baseUrl"] + this["@path"] + _id + '/' + friendId;
         const options = {
             method: 'patch',
             headers: {
@@ -51,7 +53,35 @@ class UserService implements IUserService {
             const errorMessage = NotFound.error ?? NotFound.msg ?? 'Failed At addRemoveFriend';
             throw new Error(errorMessage);
         }
-    }
+    };
+
+    getUserFriends = async(userId: string, token: string): Promise<UserServiceTypes.IGetUserFriendsResponse200> => {
+        const url = this["@baseUrl"] + this["@path"] + `/${userId}/friends`;
+        const options = {
+            method: 'GET',
+            headers: {
+                'Authorization': ['Bearer', token].join(' '),
+            },
+        }
+
+        const friendsResponse:Response = await fetch(url, options);
+
+        if(friendsResponse.status === 200)
+        {
+            const friends:UserServiceTypes.IGetUserFriendsResponse200 = await friendsResponse.json();
+            return friends
+        }
+        else if(friendsResponse.status === 400)
+        {
+            const badRequest:UserServiceTypes.IGetUserFriendsResponse400 = await friendsResponse.json();
+            throw new Error(badRequest.msg);
+        }
+        else
+        {
+            const serverError:UserServiceTypes.IGetUserFriendsResponse500 = await friendsResponse.json();
+            throw new Error(serverError.error);
+        };
+    };
 }
 
 const userService = new UserService();

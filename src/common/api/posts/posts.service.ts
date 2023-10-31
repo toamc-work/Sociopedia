@@ -11,7 +11,7 @@ class PostService implements IPostService {
     createPost = async (token: string, formData: FormData):Promise<PostServiceTypes.ICreatePostResponse201> => {
         const url = this["@baseUrl"] + this["@path"];
         const options = {
-            method:'post',
+            method:'POST',
             headers: {
                 'Authorization': ['Bearer', token].join(' '),
             },
@@ -38,7 +38,7 @@ class PostService implements IPostService {
     getFeedPosts = async (token: string):Promise<PostServiceTypes.IGetFeedPostsResponse200> => {
         const url = this["@baseUrl"] + this["@path"]
         const options = {
-            method: 'get',
+            method: 'GET',
             headers :{
                 'Authorization': ['Bearer', token].join(' '),
             },
@@ -60,7 +60,7 @@ class PostService implements IPostService {
     getUserPosts = async (token: string, userId: string):Promise<PostServiceTypes.IGetUserPostsResponse200> => {
         const url = this["@baseUrl"] + userId + '/' + this["@path"];
         const options = {
-            method: 'get',
+            method: 'GET',
             headers :{
                 'Authorization': ['Bearer', token].join(' '),
             },
