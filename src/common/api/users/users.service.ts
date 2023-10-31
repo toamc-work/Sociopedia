@@ -35,7 +35,7 @@ class UserService implements IUserService {
     addRemoveFriend = async (token:string, _id:string, friendId:string):Promise<UserServiceTypes.IAddRemoveFriendResponse200> => {
         const url = this["@baseUrl"] + this["@path"] + _id + '/' + friendId;
         const options = {
-            method: 'patch',
+            method: 'PATCH',
             headers: {
                 'Authorization': ['Bearer', token].join(' '),
                 'content-type': 'application/json',
@@ -49,8 +49,8 @@ class UserService implements IUserService {
             return friends;
         }
         else {
-            const NotFound: UserServiceTypes.IAddRemoveFriendResponse404 = await addRemoveFriendResponse.json();
-            const errorMessage = NotFound.error ?? NotFound.msg ?? 'Failed At addRemoveFriend';
+            const notFound: UserServiceTypes.IAddRemoveFriendResponse404 = await addRemoveFriendResponse.json();
+            const errorMessage = notFound.error ?? notFound.msg ?? 'Failed At addRemoveFriend';
             throw new Error(errorMessage);
         }
     };

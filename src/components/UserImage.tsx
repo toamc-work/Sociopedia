@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from '@mui/material';
 
 const UserImage:React.FunctionComponent<{image:string, size?:string}> = ({image, size="60px"}) => {
-
     return (
         <Box
             width={size} height={size}

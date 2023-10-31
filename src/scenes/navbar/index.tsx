@@ -34,7 +34,7 @@ export namespace NavbarTypes {
 
 
 const Navbar:React.FunctionComponent = () => {
-    const [ isMobileMenuToggled, setIsMobileMenuToggled ] = useState<boolean>(true); 
+    const [ isMobileMenuToggled, setIsMobileMenuToggled ] = useState<boolean>(false); 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state:IStateAuth.IInitialState) => state.user);

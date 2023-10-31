@@ -9,7 +9,6 @@ class AuthService implements IAuthService {
 
     public saveUser = async (formData:FormData):Promise<AuthServiceTypes.ISaveUserResponseStatus201> => {
         const url = process.env.REACT_APP_BACKEND_URL + this["@path"] + 'register';
-        console.log(url)
         const options = 
         {
             method:'POST',
@@ -17,7 +16,6 @@ class AuthService implements IAuthService {
         }
 
         const saveUserResponse:Response = await fetch(url, options);
-        console.log({saveUserResponse})
 
         if(saveUserResponse.status === 201) {
             const savedUser:AuthServiceTypes.ISaveUserResponseStatus201 = await saveUserResponse.json();
@@ -26,7 +24,6 @@ class AuthService implements IAuthService {
         else
         {
             const badResponse:AuthServiceTypes.ISaveUserResponseStatus500 = await saveUserResponse.json();
-            console.log(badResponse);
             throw new Error(badResponse.error);
         };
     };

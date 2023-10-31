@@ -82,6 +82,8 @@ export const authSlice = createSlice({
         setFriends: (state, action:PayloadAction<{friends:IStateAuth.IFriend[]}>) => {
             if(state.user != null)
             {
+                console.log('modify')
+                console.log(action.payload.friends)
                 state.user.friends = action.payload.friends;
             };
         },

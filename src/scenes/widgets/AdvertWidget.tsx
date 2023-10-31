@@ -33,7 +33,7 @@ const AdvertWidget = () => {
                 width={'100%'}
                 height={'auto'}
                 alt="advert" 
-                src={process.env.REACT_APP_BACKEND_URL_ASSETS + 'info4.jpeg'} 
+                src={process.env.REACT_APP_BACKEND_URL_ASSETS + '/info4.jpeg'} 
                 style={{
                     borderRadius: '0.75rem',
                     margin: '0.75rem 0',

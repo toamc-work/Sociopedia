@@ -16,7 +16,6 @@ const FriendListWidget:React.FunctionComponent<{userId:string}> = ({userId}) => 
     const theme = useTheme();
     const token = useSelector((state:IStateAuth.IInitialState) => state.token ?? '');
     const friends = useSelector((state:IStateAuth.IInitialState) => state.user?.friends ?? []);
-
     useEffect(() => {
         async function makeRequest() {
             const friends = await userService.getUserFriends(userId, token);

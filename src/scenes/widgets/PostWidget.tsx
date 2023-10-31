@@ -15,12 +15,15 @@ import {
     IconButton,
     Typography,
     useTheme,
+    CircularProgress,
 } from '@mui/material';
 
 import FlexBetween from "../../components/FlexBetween";
 import Friend from "../../components/Friend";
 import postService from "../../common/api/posts/posts.service";
 import WidgetWrapper from "../../components/WidgetWrapper";
+import { useHttpRequest } from "../../common/hooks/useHttpRequest";
+import { PostServiceTypes } from "../../common/api/posts/posts.types";
 
 export interface PostWidgetProps {
     _id:string;
@@ -53,23 +56,24 @@ const PostWidget:React.FunctionComponent<PostWidgetProps> =
     const isLiked = React.useMemo(() => Boolean(likes[authorizedUserId]), [authorizedUserId, token, likes])
     const likeCount = React.useMemo(() => Object.keys(likes).length, [authorizedUserId, token, likes])
     const theme = useTheme();
-    console.log({comments})
     const main = theme.palette.neutral.main;
     const primary = theme.palette.primary.main;
+
+    // Api Bundler All In one
+    function apiCallPatchLikeStateSetter(post:IStateAuth.IPost):void {
+        dispatch(setPost({post:post}))
+    }; 
+    const [
+        apiCallPatchLikeState, 
+        warpApiCallPatchLikeState
+    ] = useHttpRequest<PostServiceTypes.IPatchLikeResponse200>(apiCallPatchLikeStateSetter);
     
     async function handleUpdatePostLikeEvent(_event:React.MouseEvent<HTMLButtonElement>):Promise<void>
     {
-        try
-        {
-            const updatedPost = await postService.patchLike(authorizedUserId, token, _id);
-            dispatch(setPost({post:updatedPost}));                
-        }
-        catch(error)
-        {
-            console.log(error);
-            
-            // throw error
-        }
+        const callbackAPI = ():Promise<PostServiceTypes.IPatchLikeResponse200> => {
+            return postService.patchLike(authorizedUserId, token, _id)
+        };
+        warpApiCallPatchLikeState(callbackAPI);
     };    
     
     return (
@@ -110,8 +114,10 @@ const PostWidget:React.FunctionComponent<PostWidgetProps> =
                             gap={'0.3rem'}
                         >
                             <IconButton
+                                disabled={apiCallPatchLikeState.loading}
                                 onClick={handleUpdatePostLikeEvent}
                             >
+                                {apiCallPatchLikeState.loading && <CircularProgress size={'1rem'} sx={{color:primary}}/>}
                                 {isLiked ? (
                                             <FavoriteOutlined
                                                 sx={{
