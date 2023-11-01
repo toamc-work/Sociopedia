@@ -54,7 +54,7 @@ const MyPostWidget:React.FunctionComponent<{picturePath:string}> = ({picturePath
         if(image)
         {
             formData.append('picture', image);
-            formData.append('picturePath', picturePath);
+            formData.append('picturePath', image.name);
         }
         
         const posts:IStateAuth.IPost[] = await postService.createPost(token ?? '', formData);
