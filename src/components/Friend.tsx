@@ -95,7 +95,7 @@ const Friend: React.FunctionComponent<{
                     </Typography>
                 </Box>
                 <IconButton
-                    disabled={apiCallPatchFriendState.loading}
+                    disabled={(apiCallPatchFriendState.loading) || (_id === friendId)}
                     onClick={handlePatchFriend}
                     sx={{
                         backgroundColor: primaryLight,
