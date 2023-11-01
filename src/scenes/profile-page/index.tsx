@@ -24,7 +24,7 @@ const ProfilePage:React.FunctionComponent = () => {
             setUser(user);
         }
         makeRequest();
-    })
+    },[])
 
     if(!user || !userId) return null;
     
